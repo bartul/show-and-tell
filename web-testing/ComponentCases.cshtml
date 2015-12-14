@@ -1,0 +1,23 @@
+﻿@model Web.Testing.ComponentViewModel
+@using Web.Testing
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.Name + " - Cases";
+}
+<div class="content-box header">
+    <h1>@Model.Name</h1>
+    <h2>Component Cases</h2>
+    @Html.Partial("CultureMenuPartialView", Model.CultureMenu)
+</div>
+<div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+        <li>@Html.ActionLink("Back to index", "Index")</li>
+    </ul>
+</div>
+@foreach (var theCase in Model.Cases)
+{
+<div class="content-box">
+    <h1 class="boxheader">@(theCase.Name) Case</h1>
+    <div class="component" dir="@(Localization.GetCultureInfoFromCurrent().TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@Localization.GetCultureInfoFromCurrent().Name">@Html.Partial(Model.Name + "Component", theCase.Model)</div>
+</div>
+}

@@ -1,0 +1,18 @@
+﻿@model Web.Testing.CultureMenuPartialViewModel
+@using Web.Testing
+
+@for (int i = 0; i < Model.SupportedCultures.Count(); i++)
+{
+<span>
+    @if (Model.CurrentCulture == Model.SupportedCultures.ElementAt(i))
+    {
+    <strong><a href="@Url.Action("SetCulture", new { culture = Model.SupportedCultures.ElementAt(i) })"> @GetCultureCaption(Model.SupportedCultures.ElementAt(i)) </a></strong>
+    }
+    else
+    {
+    <a href="@Url.Action("SetCulture", new { culture = Model.SupportedCultures.ElementAt(i) })">@GetCultureCaption(Model.SupportedCultures.ElementAt(i))</a>
+    }
+</span>
+    if(i != Model.SupportedCultures.Count() - 1) { <text>|</text> }
+}
+

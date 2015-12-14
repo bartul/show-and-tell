@@ -1,0 +1,79 @@
+﻿@model Web.Testing.ComponentIndexViewModel
+@using Web.Testing
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.ContextName + " - Index of Components";
+
+    Html.RequiresCss("~/Content/pure-min.css")
+        .RequiresCss("~/Content/ipf.css")
+        .RequiresCss("~/Content/ipf-testing.css");
+}
+<div class="content-box header">
+    <h1>@(Model.ContextName)</h1>
+    <h2>Index of Components</h2>
+    @Html.Partial("CultureMenuPartialView", Model.CultureMenu)
+</div>
+<div class="content-box">
+@foreach (var group in Model.Groups)
+{
+    if (!string.IsNullOrEmpty(group))
+    {
+    <h2 class="content-subhead">@group</h2>
+    }
+    <div class="component-group">
+    @foreach (var component in Model.Components.Where(item => item.Group == group))
+    {
+        <p><a href="#@component.Name" class="component-link">@component.Name</a> component @if (component.HasMultipleCases)
+                                                       { <text> with </text>@Html.ActionLink("cases", "ComponentCases", new { name = component.Name })}</p>   
+    }
+    </div>
+}
+</div>
+@foreach (var component in Model.Components)
+{
+<div class="content-box">
+    <h1 id="@component.Name" class="boxheader">@component.Name</h1>
+    @ComponentMetadata(component.Name, component.Name, component.Description, component.Interface, component.ExternalResources)
+    @if (component.HasAnyCase)
+    {
+        @ComponentCase(component.Name, component.SpotlightCase.Model, component.HasMultipleCases)
+    }
+    else
+    {
+    <h3>Add some cases, pretty please !!!</h3>
+    }
+</div>
+}
+
+
+@helper ComponentMetadata(string name, string caption, string description, string[] modelInterface, string[] requires)
+{
+    <dl>
+        <dt>Description</dt>
+        <dd>@description</dd>
+        <dt>Interface</dt>
+        <dd>
+            <pre>@foreach (var i in modelInterface)
+                 {<code>@i</code><br />}</pre>
+        </dd>
+        @if (requires != null && requires.Length > 0)
+        {
+            <dt>Requires</dt>
+            foreach (var item in requires)
+            {
+            <dd>@item</dd>
+            }
+        }
+    </dl>
+}
+@helper ComponentCase(string name, object model, bool hasCases = false)
+{
+    <div class="component" dir="@(Localization.GetCultureInfoFromCurrent().TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@Localization.GetCultureInfoFromCurrent().Name">
+        @if (model != null)
+        { @Html.Partial(name + "Component", model) }
+        else
+        { @Html.Partial(name + "Component") }
+    </div>
+    if (hasCases)
+    {<div>@Html.ActionLink("Cases", "ComponentCases", new { name = name }, new { @class="pure-button pure-button-small" })</div>}
+}

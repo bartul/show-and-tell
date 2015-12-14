@@ -1,0 +1,21 @@
+﻿@model Web.ViewModels.HomeViewModel
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="pure-g-r">
+    <div class="pure-u-1-4">
+        <div class="content-box">
+            <div class="header">
+                <h2>@Localization.Global.Headline</h2>
+                <h1>@Localization.Global.SubHedline</h1>
+            </div>
+        </div>
+    </div>
+    <div class="pure-u-3-4">
+        <div class="content-box">
+            <h2 class="boxheader">@Localization.Home.Title")</h2>
+            <div class="pure-u-1">
+                @Html.Component("SomeImportantListComponent", Model.SomeImportantListComponentModel)
+            </div>
+        </div>
+    </div>
+</div>
