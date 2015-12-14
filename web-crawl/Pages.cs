@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vulpine.Model;
 
-namespace Vulpine.DataExtraction
+namespace DataExtraction
 {
     public static class Pages
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Vulpine.Model;
 using HtmlAgilityPack;
 
-namespace Vulpine.DataExtraction
+namespace DataExtraction
 {
     public static class ModelParsers
     {

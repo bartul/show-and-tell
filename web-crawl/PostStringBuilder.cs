@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vulpine.DataExtraction
+namespace DataExtraction
 {
     public class PostStringBuilder
     {

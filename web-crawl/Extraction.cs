@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vulpine.DataExtraction
+namespace DataExtraction
 {
     public class Extraction
     {
@@ -26,11 +26,11 @@ namespace Vulpine.DataExtraction
         {
             return new Extraction(httpClient);
         }
-        public static Extraction Start()
+        public static Extraction Start(url string)
         {
             var httpClient = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true, UseCookies = true });
-            httpClient.DefaultRequestHeaders.Add("Host", "kartica.ina.hr");
-            httpClient.BaseAddress = new Uri("https://kartica.ina.hr");
+            httpClient.DefaultRequestHeaders.Add("Host", url);
+            httpClient.BaseAddress = new Uri(url);
 
             return Extraction.Start(httpClient);
         }
